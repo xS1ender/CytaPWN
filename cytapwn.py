@@ -8,7 +8,8 @@
 # +-------------------------------------------------------------------------------------------------------------+
 # | This python script connects to ZTE ZXHN H267N running CYTA's software through telnet                        |
 # | using the current credentials, and changes/adds/removes data and features. This script                      |
-# | is tested mostly on a machine running Kali Linux 2017.1 and Windows 10 Prof Edition                         |
+# | is tested mostly on a machine running Kali Linux 2017.1 and Windows 10 Prof Edition.                        |
+# | UPDATE (12/6/17): CytaPWN will no longer support Windows; This might change in the future.                  |
 # +-------------------------------------------------------------------------------------------------------------+
 # |  Tested on ZTE:                                                                                             |
 # |  [*] Model name          : ZTE ZXHN H267N                                                                   |
@@ -23,8 +24,18 @@
 # +-------------------------------------------------------------------------------------------------------------+
 
 import urllib, re, time, os, sys, requests
-import urllib2, commands, telnetlib
+import urllib2, commands, telnetlib, imp
 from bs4 import BeautifulSoup as bs
+
+# -------------------------------------------------
+#  See if BeatifulSoup is installed, continue if
+#     it is and install it through pip if not   
+# -------------------------------------------------
+# try:
+#     imp.find_module('BeatifulSoup()')
+#     from bs4 import BeautifulSoup as bs
+# except ImportError:
+#     os.system('pip install BeatifulSoup')
 
 # -------------------------------------------------
 #  Generic (hidden) 'root' account credentials.
@@ -41,7 +52,6 @@ payload = {
     'Frm_Username':username,
     'Frm_Password':password
 }
-
 
 os.system('clear')
 
@@ -136,6 +146,4 @@ try:
         print "Failed to connect on "+target
 
 except (KeyboardInterrupt, SystemExit):
-        print ""
-
-# EOF
+        print "Exiting.."
